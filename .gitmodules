@@ -1,0 +1,6 @@
+[submodule "data/instances"]
+	path = data/instances
+	url = git@github.com:mariabessa/SMRDSDST-tcc.git
+[submodule "lib/pt-api"]
+	path = lib/pt-api
+	url = git@github.com:ALBA-CODES/PTAPI.git

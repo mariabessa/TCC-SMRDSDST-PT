@@ -1,4 +1,6 @@
 #include "SMRDSDST.h"
+#include <algorithm>
+#include <random>
 
 SMRDSDST::SMRDSDST(std::string filename){
 	
@@ -11,8 +13,9 @@ SMRDSDST::SMRDSDST(std::string filename){
 		
 		getline(ifs,line);
         std::stringstream header(line);
-        header >> numberJobs >> numberMachines;
-		
+        int numberMachinesDisregard;
+        header >> numberJobs >> numberMachinesDisregard;
+            
 		getline(ifs,line);        
         getline(ifs, line); // ignora as duas linhas com 0
 
@@ -37,6 +40,24 @@ SMRDSDST::SMRDSDST(std::string filename){
 	} else{
 		std::cout << "Could not open file! \n";
 	}	
+}
+
+solSMRDSDST SMRDSDST::construction() {
+    solSMRDSDST solution;
+    std::random_device randomDevice;
+    std::mt19937 generator(randomDevice());
+
+    for (int job = 1; job <= numberJobs; ++job) {
+        solution.sequence.push_back(job);
+    }
+
+    std::shuffle(solution.sequence.begin(), solution.sequence.end(), generator);
+
+    solution.evalSol = evaluate(solution);
+    solution.Nup = false;
+    solution.Ndown = false;
+
+    return solution;
 }
 
 

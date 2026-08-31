@@ -19,5 +19,8 @@ public:
 
     solSMRDSDST construction() override;
     solSMRDSDST neighbor(solSMRDSDST sol) override;
+    solSMRDSDST neighborSwap(solSMRDSDST sol);
+    solSMRDSDST neighborLBlockInsertion(solSMRDSDST sol, int blockSize);
+    solSMRDSDST neighborInversion(solSMRDSDST sol);
     double evaluate(solSMRDSDST sol) override;
 };

@@ -1,10 +1,11 @@
 #include "SMRDSDST.h"
 #include <algorithm>
 #include <random>
+#include <iostream>
+
 
 SMRDSDST::SMRDSDST(std::string filename){
 	
-	fn = filename;
 	std::string line; 
     std::ifstream ifs;
 	ifs.open(filename);		
@@ -38,7 +39,7 @@ SMRDSDST::SMRDSDST(std::string filename){
         }
         ifs.close();
 	} else{
-		std::cout << "Could not open file! \n";
+		std::cout << "Could not open file! \n"<< filename << std::endl;
 	}	
 }
 
@@ -136,15 +137,14 @@ solSMRDSDST SMRDSDST::neighborInversion(solSMRDSDST sol) {
 
 // [3, 4, 11, 20, 7, 10, 13, 1, 21, 9, 8, 19, 17, 16, 14, 5, 25, 6, 22, 15, 24, 12, 23, 18, 2]
 
-SMRDSDST::evaluate(solSMRDSDST sol) {
+double SMRDSDST::evaluate(solSMRDSDST sol) {
     int currentTime = 0;
     int lastJob = 0;
 
     for (int jobIndex : sol.sequence) {
         int setupTime = setup[lastJob][jobIndex - 1];
-        int startTime = std::max(currentTime + setupTime, release[jobIndex - 1]);
-        currentTime = startTime + processing[jobIndex - 1];
-
+        int startTime = std::max(currentTime, release[jobIndex - 1]);
+        currentTime = startTime + processing[jobIndex - 1] + setupTime;
         lastJob = jobIndex;
     }
 

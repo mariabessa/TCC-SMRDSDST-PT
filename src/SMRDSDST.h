@@ -1,5 +1,10 @@
 #ifndef SMRDSDST_H
 #define SMRDSDST_H
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+
 
 #include "../lib/pt-api/include/Problem.h"
 //Single Machine Scheduling with Release Dates and Sequence-Dependent Setup Times
@@ -24,3 +29,5 @@ public:
     solSMRDSDST neighborInversion(solSMRDSDST sol);
     double evaluate(solSMRDSDST sol) override;
 };
+
+#endif
